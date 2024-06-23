@@ -16,3 +16,8 @@ this repo documents the installation of DonkeyCar 5.1 on a Raspberry 5 with a do
     pip install albumentations
     ```
 - [x] testing camera `libcamera-still -o test.jpg`
+- [ ] VScode
+    ```
+    sudo apt update
+    sudo apt install code
+    ```
