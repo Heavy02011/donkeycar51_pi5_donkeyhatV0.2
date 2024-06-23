@@ -14,7 +14,7 @@ this repo documents the installation of DonkeyCar 5.1 on a Raspberry 5 with a do
 ```
 pip install kivy
 pip install plotly
-
+pip install albumentations
 ```
 testing camera
 libcamera-still -o test.jpg
