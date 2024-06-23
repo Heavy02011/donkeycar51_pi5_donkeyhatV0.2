@@ -10,5 +10,11 @@ this repo documents the installation of DonkeyCar 5.1 on a Raspberry 5 with a do
 - [x] SD-card Bookworm 5.2, March 2024
 - [x] pip install donkeycar[pi]
 
+## donkey ui needs
+```
+pip install kivy
+pip install plotly
+
+```
 testing camera
 libcamera-still -o test.jpg
