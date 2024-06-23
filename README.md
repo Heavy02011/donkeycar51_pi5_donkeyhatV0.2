@@ -22,6 +22,7 @@ this repo documents the installation of DonkeyCar 5.1 on a Raspberry 5 with a do
     sudo apt install code
     ```
 - [x] set `DRIVE_TRAIN_TYPE = "PWM_STEERING_THROTTLE"`
+- [x] set `PCA9685_I2C_ADDR = 0x3c`
 - ```PWM_STEERING_THROTTLE = {
       "PWM_STEERING_PIN": "PCA9685.1:3C.1",   # PWM output pin for steering servo
       "PWM_STEERING_SCALE": 1.0,              # used to compensate for PWM frequency differents from 60hz; NOT for adjusting steering range
