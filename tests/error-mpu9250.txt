@@ -1,0 +1,96 @@
+(env) rainer@donkeypi5:~/mycar $ python manage.py drive 
+________             ______                   _________              
+___  __ \_______________  /___________  __    __  ____/_____ ________
+__  / / /  __ \_  __ \_  //_/  _ \_  / / /    _  /    _  __ `/_  ___/
+_  /_/ // /_/ /  / / /  ,<  /  __/  /_/ /     / /___  / /_/ /_  /    
+/_____/ \____//_/ /_//_/|_| \___/_\__, /      \____/  \__,_/ /_/     
+                                 /____/                              
+
+using donkey v5.1.0 ...
+INFO:donkeycar.config:loading config file: /home/rainer/mycar/config.py
+INFO:donkeycar.config:loading personal config over-rides from myconfig.py
+INFO:__main__:PID: 3687
+cfg.CAMERA_TYPE PICAM
+INFO:__main__:cfg.CAMERA_TYPE PICAM
+[0:16:07.846146662] [3687]  INFO Camera camera_manager.cpp:313 libcamera v0.3.0+65-6ddd79b5
+[0:16:07.853920234] [3693]  INFO RPI pisp.cpp:695 libpisp version v1.0.6 b567f0455680 17-06-2024 (10:20:00)
+[0:16:07.863356342] [3693]  INFO RPI pisp.cpp:1154 Registered camera /base/axi/pcie@120000/rp1/i2c@88000/ov5647@36 to CFE device /dev/media0 and ISP device /dev/media2 using PiSP variant BCM2712_C0
+[0:16:07.865112730] [3687]  INFO Camera camera_manager.cpp:313 libcamera v0.3.0+65-6ddd79b5
+[0:16:07.872972802] [3696]  INFO RPI pisp.cpp:695 libpisp version v1.0.6 b567f0455680 17-06-2024 (10:20:00)
+[0:16:07.889935407] [3696]  INFO RPI pisp.cpp:1154 Registered camera /base/axi/pcie@120000/rp1/i2c@88000/ov5647@36 to CFE device /dev/media0 and ISP device /dev/media2 using PiSP variant BCM2712_C0
+INFO:picamera2.picamera2:Initialization successful.
+INFO:picamera2.picamera2:Camera now open.
+[0:16:07.892575943] [3687]  WARN V4L2 v4l2_pixelformat.cpp:344 Unsupported V4L2 pixel format RPBP
+INFO:picamera2.picamera2:Camera configuration has been adjusted!
+[0:16:07.893469462] [3687]  INFO Camera camera.cpp:1183 configuring streams: (0) 128x120-BGR888 (1) 640x480-GBRG_PISP_COMP1
+[0:16:07.893567684] [3696]  INFO RPI pisp.cpp:1450 Sensor: /base/axi/pcie@120000/rp1/i2c@88000/ov5647@36 - Selected sensor format: 640x480-SGBRG10_1X10 - Selected CFE format: 640x480-PC1g
+INFO:picamera2.picamera2:Configuration successful!
+INFO:picamera2.picamera2:Camera started
+INFO:donkeycar.parts.camera:PiCamera opened...
+INFO:donkeycar.parts.camera:...warming camera
+INFO:donkeycar.parts.camera:PiCamera ready.
+INFO:donkeycar.vehicle:Adding part PiCamera.
+INFO:donkeycar.parts.web_controller.web:Starting Donkey Server...
+INFO:donkeycar.parts.web_controller.web:You can now go to donkeypi5.local:8887 to drive your car.
+INFO:donkeycar.vehicle:Adding part LocalWebController.
+INFO:donkeycar.vehicle:Adding part Pipe.
+INFO:donkeycar.vehicle:Adding part ExplodeDict.
+INFO:donkeycar.vehicle:Adding part Lambda.
+INFO:donkeycar.vehicle:Adding part Lambda.
+INFO:donkeycar.vehicle:Adding part Lambda.
+INFO:donkeycar.vehicle:Adding part Lambda.
+INFO:donkeycar.vehicle:Adding part Lambda.
+INFO:donkeycar.vehicle:Adding part ThrottleFilter.
+INFO:donkeycar.vehicle:Adding part UserPilotCondition.
+INFO:donkeycar.vehicle:Adding part RecordTracker.
+Traceback (most recent call last):
+  File "/home/rainer/env/lib/python3.11/site-packages/mpu9250_jmdev/mpu_9250.py", line 96, in configure
+    self.configureAK8963(self.mfs, self.mode)
+  File "/home/rainer/env/lib/python3.11/site-packages/mpu9250_jmdev/mpu_9250.py", line 232, in configureAK8963
+    self.writeAK(AK8963_CNTL1, 0x00, 0.1)
+  File "/home/rainer/env/lib/python3.11/site-packages/mpu9250_jmdev/mpu_9250.py", line 1012, in writeAK
+    self.bus.write_byte_data(self.address_ak, register, value)
+  File "/usr/lib/python3/dist-packages/smbus2/smbus2.py", line 455, in write_byte_data
+    ioctl(self.fd, I2C_SMBUS, msg)
+OSError: [Errno 121] Remote I/O error
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/rainer/env/lib/python3.11/site-packages/mpu9250_jmdev/mpu_9250.py", line 96, in configure
+    self.configureAK8963(self.mfs, self.mode)
+  File "/home/rainer/env/lib/python3.11/site-packages/mpu9250_jmdev/mpu_9250.py", line 232, in configureAK8963
+    self.writeAK(AK8963_CNTL1, 0x00, 0.1)
+  File "/home/rainer/env/lib/python3.11/site-packages/mpu9250_jmdev/mpu_9250.py", line 1012, in writeAK
+    self.bus.write_byte_data(self.address_ak, register, value)
+  File "/usr/lib/python3/dist-packages/smbus2/smbus2.py", line 455, in write_byte_data
+    ioctl(self.fd, I2C_SMBUS, msg)
+OSError: [Errno 121] Remote I/O error
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/rainer/mycar/manage.py", line 1142, in <module>
+    drive(cfg, model_path=args['--model'], use_joystick=args['--js'],
+  File "/home/rainer/mycar/manage.py", line 269, in drive
+    add_imu(V, cfg)
+  File "/home/rainer/mycar/manage.py", line 917, in add_imu
+    imu = IMU(sensor=cfg.IMU_SENSOR, addr=cfg.IMU_ADDRESS,
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rainer/env/lib/python3.11/site-packages/donkeycar/parts/imu.py", line 55, in __init__
+    self.sensor.configure()
+  File "/home/rainer/env/lib/python3.11/site-packages/mpu9250_jmdev/mpu_9250.py", line 101, in configure
+    self.configure(retry - 1)
+  File "/home/rainer/env/lib/python3.11/site-packages/mpu9250_jmdev/mpu_9250.py", line 101, in configure
+    self.configure(retry - 1)
+  File "/home/rainer/env/lib/python3.11/site-packages/mpu9250_jmdev/mpu_9250.py", line 104, in configure
+    raise err
+  File "/home/rainer/env/lib/python3.11/site-packages/mpu9250_jmdev/mpu_9250.py", line 96, in configure
+    self.configureAK8963(self.mfs, self.mode)
+  File "/home/rainer/env/lib/python3.11/site-packages/mpu9250_jmdev/mpu_9250.py", line 232, in configureAK8963
+    self.writeAK(AK8963_CNTL1, 0x00, 0.1)
+  File "/home/rainer/env/lib/python3.11/site-packages/mpu9250_jmdev/mpu_9250.py", line 1012, in writeAK
+    self.bus.write_byte_data(self.address_ak, register, value)
+  File "/usr/lib/python3/dist-packages/smbus2/smbus2.py", line 455, in write_byte_data
+    ioctl(self.fd, I2C_SMBUS, msg)
+OSError: [Errno 121] Remote I/O error
