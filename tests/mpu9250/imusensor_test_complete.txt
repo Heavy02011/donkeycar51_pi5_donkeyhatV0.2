@@ -1,0 +1,63 @@
+(env) rainer@donkeypi5:~/dev/imusensor/examples $ python complete_caliberation.py 
+The name is wrong [117]
+The mag name is different and it is [0]
+looks like it did not write properly
+looks like it did not write properly
+looks like it did not write properly
+looks like it did not write properly
+looks like it did not write properly
+Accel calibration starting
+looks like it did not write properly
+Acceleration calibration is starting and keep placing the IMU in 6 different directions based on the instructions below
+Put the IMU in 1 position
+[-4.18118344  8.34105141  2.35682854]
+[]
+[8.341051405813689]
+[]
+Put the IMU in 2 position
+[0.18195663 2.17224414 9.40847082]
+[]
+[8.341051405813689]
+[9.40847081528954]
+Put the IMU in 3 position
+[-2.08521646 -8.22262816  4.5570264 ]
+[]
+[8.341051405813689, -8.222628158388648]
+[9.40847081528954]
+Put the IMU in 4 position
+[-8.5913121  -0.33498982  4.14270666]
+[-8.59131209887846]
+[8.341051405813689, -8.222628158388648]
+[9.40847081528954]
+Put the IMU in 5 position
+[-4.2138899   0.33549263 -8.98393329]
+[-8.59131209887846]
+[8.341051405813689, -8.222628158388648]
+[9.40847081528954, -8.98393328999771]
+Put the IMU in 6 position
+[-3.68551056 -6.60869241 -6.3253242 ]
+[-8.59131209887846]
+[8.341051405813689, -8.222628158388648, -6.6086924055848035]
+[9.40847081528954, -8.98393328999771, -6.32532420233463]
+It looks like there were some external forces on sensor and couldn't get proper values. Please try again
+Accel calibration Finisehd
+[0. 0. 0.]
+[1. 1. 1.]
+Mag calibration starting
+looks like it did not write properly
+Traceback (most recent call last):
+  File "/home/rainer/dev/imusensor/examples/complete_caliberation.py", line 23, in <module>
+    imu.caliberateMagPrecise()
+  File "/home/rainer/env/lib/python3.11/site-packages/imusensor/MPU9250/MPU9250.py", line 397, in caliberateMagPrecise
+    centre, evecs, radii, v = self.__ellipsoid_fit(magvals)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rainer/env/lib/python3.11/site-packages/imusensor/MPU9250/MPU9250.py", line 423, in __ellipsoid_fit
+    u = np.linalg.solve(D.dot(D.T), D.dot(d2))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rainer/env/lib/python3.11/site-packages/numpy/linalg/linalg.py", line 409, in solve
+    r = gufunc(a, b, signature=signature, extobj=extobj)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rainer/env/lib/python3.11/site-packages/numpy/linalg/linalg.py", line 112, in _raise_linalgerror_singular
+    raise LinAlgError("Singular matrix")
+numpy.linalg.LinAlgError: Singular matrix
+

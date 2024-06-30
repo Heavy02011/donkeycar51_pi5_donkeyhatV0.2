@@ -1,0 +1,48 @@
+(env) rainer@donkeypi5:~/dev/imusensor/examples $ python checkingSavingAndLoadingCalibInfo.py 
+The name is wrong [117]
+The mag name is different and it is [0]
+looks like it did not write properly
+looks like it did not write properly
+looks like it did not write properly
+looks like it did not write properly
+looks like it did not write properly
+looks like it did not write properly
+Acceleration calibration is starting and keep placing the IMU in 6 different directions based on the instructions below
+Put the IMU in 1 position
+[ 5.14874159  6.05434662 -5.9699527 ]
+[]
+[6.054346623941406]
+[]
+Put the IMU in 2 position
+[-3.24890564  8.83239056 -2.36044396]
+[]
+[6.054346623941406, 8.832390560769054]
+[]
+Put the IMU in 3 position
+[ 4.24268762  6.7743796  -5.87059426]
+[]
+[6.054346623941406, 8.832390560769054, 6.774379601739529]
+[]
+Put the IMU in 4 position
+[-0.92289205  1.56888057  9.4703162 ]
+[]
+[6.054346623941406, 8.832390560769054, 6.774379601739529]
+[9.4703161950103]
+Put the IMU in 5 position
+[-2.80504592 -8.39164945  3.76442746]
+[]
+[6.054346623941406, 8.832390560769054, 6.774379601739529, -8.391649450217438]
+[9.4703161950103]
+Put the IMU in 6 position
+[-9.3603928  -1.80496088 -0.70644519]
+[-9.360392796520943]
+[6.054346623941406, 8.832390560769054, 6.774379601739529, -8.391649450217438]
+[9.4703161950103]
+It looks like there were some external forces on sensor and couldn't get proper values. Please try again
+Acceleration calib successful
+Traceback (most recent call last):
+  File "/home/rainer/dev/imusensor/examples/checkingSavingAndLoadingCalibInfo.py", line 15, in <module>
+    imu.caliberateMag()
+    ^^^^^^^^^^^^^^^^^
+AttributeError: 'MPU9250' object has no attribute 'caliberateMag'. Did you mean: 'caliberateGyro'?
+
