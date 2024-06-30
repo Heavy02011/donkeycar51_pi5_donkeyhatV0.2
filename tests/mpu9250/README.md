@@ -43,6 +43,7 @@ The AK8963 is only directly accessable when the mpu-9250 is in i2c passthrough m
 
 # links
 - [x] https://github.com/makerportal/mpu92-calibration.git failed
+- [x] https://medium.com/@niru5/hands-on-with-rpi-and-mpu9250-part-3-232378fa6dbc failed
 - [ ] https://medium.com/@fasateaniket5/motion-sensors-mpu-6050-and-mpu9250-e86467e9a237
 - [ ] https://mryslab.github.io/pymata_rh/mpu9250/
 - [ ] https://github.com/wallarug/CircuitPython_MPU9250
