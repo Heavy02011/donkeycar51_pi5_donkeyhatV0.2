@@ -1,5 +1,5 @@
 # donkeycar51_pi5_donkeyhatV0.2
-this repo documents the installation of DonkeyCar 5.1 on a Raspberry 5 with a donkyhat V0.2 on a *Goolsky WLtoys XKS 144010 RC* car
+this repo documents the installation of DonkeyCar 5.1 on a Raspberry 5 with a donkyhat V0.2 on a *Goolsky WLtoys XKS 144010 RC* car following the [donkeycar docs](http://docs.donkeycar.com)
 
 ## [Building car](building_car.md)
 
