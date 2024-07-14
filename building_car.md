@@ -1,5 +1,8 @@
 # Building Car
 
+- original wiring
+  ![](media/IMG_9825.jpeg)
+  
 - 3d printed chassis
   ![](media/IMG_0006.jpeg)
 
