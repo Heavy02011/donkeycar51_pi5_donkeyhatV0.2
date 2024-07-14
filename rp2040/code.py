@@ -1,4 +1,3 @@
-# Write your code here :-)
 # Donkey Car Driver for 2040-based boards such as the Raspberry Pi Pico and KB2040
 #
 # Notes:
@@ -8,12 +7,10 @@
 import time
 import board
 import busio
-import busio
 import neopixel
 from pulseio import PulseIn
 from pwmio import PWMOut
 import digitalio
-
 
 # Customisation these variables
 DEBUG = False
@@ -23,21 +20,24 @@ SMOOTHING_INTERVAL_IN_S = 0.025
 ACCEL_RATE = 10
 
 # Pin assignments
-RC1 = board.GP6
-RC2 = board.GP5
-RC3 = board.GP4
+RC1 = board.GP27
+RC2 = board.GP26
+RC3 = board.GP29
 Steering = board.GP11
 Throttle = board.GP10
-Encoder1A = board.GP8
-Encoder1B = board.GP9
-Encoder2A = board.GP13
-Encoder2B = board.GP14
+Encoder1A = board.GP28
+Encoder1B = board.GP14
+Encoder2A = board.GP15
+Encoder2B = board.GP9
 
+# Set up pins for encoder channel
+encoder1 = digitalio.DigitalInOut(Encoder1A)
+encoder1.direction = digitalio.Direction.INPUT
+encoder1.pull = digitalio.Pull.DOWN
 
-# Set up pin for encoder channel
-encoder = digitalio.DigitalInOut(Encoder1A)
-encoder.direction = digitalio.Direction.INPUT
-encoder.pull = digitalio.Pull.DOWN
+encoder2 = digitalio.DigitalInOut(Encoder2A)
+encoder2.direction = digitalio.Direction.INPUT
+encoder2.pull = digitalio.Pull.DOWN
 
 pixel = neopixel.NeoPixel(board.NEOPIXEL, 1)
 
@@ -55,10 +55,9 @@ def servo_duty_cycle(pulse_ms, frequency = 60):
     duty_cycle = int(pulse_ms / 1000 / (period_ms / 65535.0))
     return duty_cycle
 
-
 def state_changed(control):
     """
-    Reads the RC channel and smooths value
+    Reads the RC channel and smoothes value
     """
     control.channel.pause()
     for i in range(0, len(control.channel)):
@@ -72,7 +71,6 @@ def state_changed(control):
     control.channel.clear()
     control.channel.resume()
 
-
 class Control:
     """
     Class for a RC Control Channel
@@ -85,9 +83,7 @@ class Control:
         self.value = value
         self.servo.duty_cycle = servo_duty_cycle(value)
 
-
 # set up serial UART to Raspberry Pi
-# note UART(TX, RX, baudrate)
 uart = busio.UART(board.TX, board.RX, baudrate=115200, timeout=0.001)
 
 # set up servos
@@ -98,7 +94,6 @@ throttle_pwm = PWMOut(Throttle, duty_cycle=2 ** 15, frequency=60)
 steering_channel = PulseIn(RC1, maxlen=64, idle_state=0)
 throttle_channel = PulseIn(RC2, maxlen=64, idle_state=0)
 mode_channel = PulseIn(RC3, maxlen=64, idle_state=0)
-
 
 # setup Control objects.  1500 pulse is off and center steering
 steering = Control("Steering", steering_pwm, steering_channel, 1500)
@@ -116,19 +111,29 @@ def main():
     steering_val = steering.value
     throttle_val = throttle.value
     led_state = False
-    color=(0, 0, 255)
-    position = 0
-    last_state = encoder.value
-
+    color = (0, 0, 255)
+    position1 = 0
+    position2 = 0
+    last_state1 = encoder1.value
+    last_state2 = encoder2.value
 
     while True:
         current_time = time.monotonic()
-        current_state = encoder.value
-        if current_state != last_state:
-            if current_state == False:  # Detect falling edge
-                position += 1
-                print("Position:", position)
-        last_state = current_state
+        current_state1 = encoder1.value
+        current_state2 = encoder2.value
+
+        if current_state1 != last_state1:  # encoder1 state changed
+            if current_state1 == False:  # Detect falling edge
+                position1 += 1
+                print("Position1:", position1)
+
+        if current_state2 != last_state2:  # encoder2 state changed
+            if current_state2 == False:  # Detect falling edge
+                position2 += 1
+                print("Position2:", position2)
+
+        last_state1 = current_state1
+        last_state2 = current_state2
         time.sleep(0.01)  # Debounce delay
 
         if current_time - last_toggle_time >= interval:
@@ -139,19 +144,20 @@ def main():
             pixel.show()
             led_state = not led_state
             last_toggle_time = current_time
+
         # only update every smoothing interval (to avoid jumping)
-        if(last_update + SMOOTHING_INTERVAL_IN_S > current_time):
+        if last_update + SMOOTHING_INTERVAL_IN_S > current_time:
             continue
         last_update = time.monotonic()
 
         # check for new RC values (channel will contain data)
-        if(len(throttle.channel) != 0):
+        if len(throttle.channel) != 0:
             state_changed(throttle)
 
-        if(len(steering.channel) != 0):
+        if len(steering.channel) != 0:
             state_changed(steering)
 
-        if(USB_SERIAL):
+        if USB_SERIAL:
             # simulator USB
             print("%i, %i" % (int(steering.value), int(throttle.value)))
         else:
@@ -164,12 +170,12 @@ def main():
             byte = uart.read(1)
 
             # if no data, break and continue with RC control
-            if(byte is None):
+            if byte is None:
                 break
             last_input = time.monotonic()
 
             # if data is received, check if it is the end of a stream
-            if(byte == b'\r'):
+            if byte == b'\r':
                 data = bytearray()
                 break
 
@@ -179,7 +185,7 @@ def main():
             datastr = ''.join([chr(c) for c in data]).strip()
 
         # if we make it here, there is serial data from the previous step
-        if(len(datastr) >= 10):
+        if len(datastr) >= 10:
             steering_val = steering.value
             throttle_val = throttle.value
             try:
@@ -193,7 +199,7 @@ def main():
             last_input = time.monotonic()
             print("Set: steering=%i, throttle=%i" % (steering_val, throttle_val))
 
-        if(last_input + 10 < time.monotonic()):
+        if last_input + 10 < time.monotonic():
             # set the servo for RC control
             steering.servo.duty_cycle = servo_duty_cycle(steering.value)
             throttle.servo.duty_cycle = servo_duty_cycle(throttle.value)
@@ -201,7 +207,6 @@ def main():
             # set the servo for serial data (recieved)
             steering.servo.duty_cycle = servo_duty_cycle(steering_val)
             throttle.servo.duty_cycle = servo_duty_cycle(throttle_val)
-
 
 # Run
 print("Run!")
