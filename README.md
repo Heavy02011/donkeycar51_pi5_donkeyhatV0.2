@@ -24,11 +24,11 @@ this repo documents the installation of DonkeyCar 5.1 on a Raspberry 5 with a do
     sudo apt update
     sudo apt install code
     ```
-- [ ] set `DRIVE_TRAIN_TYPE = "<not implemented yet>"`
+- [ ] set `DRIVE_TRAIN_TYPE = "MM1"`
 ```
 sudo minicom -b 115200 -o -D /dev/ttyAMA0
 ```
-- [ ] [wifi hotspot](https://medium.com/@jones.0bj3/wireless-networking-for-the-jetson-nano-and-rpi-504868dd1b3a)
+- [x] [wifi hotspot](https://medium.com/@jones.0bj3/wireless-networking-for-the-jetson-nano-and-rpi-504868dd1b3a)
 ```
 sudo -i -u rainer nmcli dev wifi hotspot ifname wlan1 ssid rbnano1-drivingnetwork password XXXXXXXX
 ```
