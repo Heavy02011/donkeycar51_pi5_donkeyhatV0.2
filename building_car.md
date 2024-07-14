@@ -5,3 +5,6 @@
 
 - weight of assembled car
   ![](media/IMG_0066.jpeg)
+
+- documentation of wiring
+  ![](media/IMG_0074.jpeg)
