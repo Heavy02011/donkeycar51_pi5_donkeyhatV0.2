@@ -2,6 +2,7 @@
 this repo documents the installation of DonkeyCar 5.1 on a Raspberry 5 with a donkyhat V0.2 on a *Goolsky WLtoys XKS 144010 RC* car following the [donkeycar docs](http://docs.donkeycar.com)
 
 ## [Building car](building_car.md)
+![](media/IMG_0061.jpeg)
 
 ## Donkeyhat V0.2, thx to [Chris](https://github.com/zlite)
 ![](./media/donkeyhatV0.2.jpg)
