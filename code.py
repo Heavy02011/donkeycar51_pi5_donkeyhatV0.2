@@ -15,8 +15,8 @@ import rotaryio
 
 # Customisation variables
 DEBUG = False
-USB_SERIAL = True
-SMOOTHING_INTERVAL_IN_S = 0.025
+USB_SERIAL = False #True
+SMOOTHING_INTERVAL_IN_S = 0.0 #0.10 # 0.05 #0.025
 ACCEL_RATE = 10
 USE_QUADRATURE = False  # Set to False to use regular encoder
 
@@ -188,7 +188,7 @@ def main():
         else:
             # write the RC values to the RPi Serial
             uart.write(b"%i, %i\r\n" % (int(steering.value), int(throttle.value)))
-            # print(int(steering.value), int(throttle.value))
+            #print(int(steering.value), int(throttle.value))
 
         while True:
             # wait for data on the serial port and read 1 byte
