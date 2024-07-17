@@ -1,0 +1,19 @@
+{
+    "parameterSets": {
+        "Standardwerte des Designs": {
+            "$fn": "50",
+            "CenterHoleExagonal": "No",
+            "CenterHoleRadius": "5",
+            "CenterSupportHeight": "7",
+            "CenterSupportHoleExagonal": "No",
+            "CenterSupportHoleRadius": "5",
+            "CenterSupportRadius": "10",
+            "ExternalRadius": "25.7",
+            "InnerRadius": "14",
+            "TeethCount": "20",
+            "WallTickness": "3",
+            "WheelHeight": "3"
+        }
+    },
+    "fileFormatVersion": "1"
+}
