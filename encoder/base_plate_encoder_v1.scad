@@ -4,7 +4,7 @@ $fn=100;
 base_length = 28;
 
 // base_width
-base_width = 20;
+base_width = 27;
 
 // base_height
 base_height = 3;
@@ -13,39 +13,78 @@ base_height = 3;
 support_height = 10;
 
 // support_angle
-support_angle = -60;
-
-// mount_hole_diameter
-mount_hole_diameter = 3;
+support_angle = 40;
 
 // base_angle
 base_angle = 30;
 
 //-----------------------------------------------------------
 
+//---screw_parameters
+
+// mount_hole_diameter
+mount_hole_diameter = 3.5;
+
 // mount_hole_outer_diameter
 mount_hole_outer_diameter = mount_hole_diameter + 2;
 
 // screw_fac
-screw_fac = 1.1;
-screw_offset = 5;
+screw_fac = 1.1; // height of cylinders
+screw_offset = 5; // distance from edges
 
-//---moddules-------------------------------------------------
+//---sensor_parameters
+sensor_screw_hole = 2.2;
+sensor_screw_diameter = 2.3;
+sensor_screw_depth = 8;
+sensor_base_width = 7;
+sensor_base_length = 27;
+sensor_holes_distance = (24.4 + 18) / 2; 
+sensor_pcb_width = 13;
+
+//---modules-------------------------------------------------
 module screw_hole(){
-    fac = base_height/2 * screw_fac;
-    translate([0,0,-fac]) cylinder(h=fac, r = mount_hole_outer_diameter/2, center =false);
-    cylinder(h=fac, r = mount_hole_diameter/2, center =false);
+    rotate([0, 180, 0]){
+        fac = base_height/2 * screw_fac; // height of cylinders
+        translate([0,0,-fac]) cylinder(h=fac, r = mount_hole_outer_diameter/2, center =false);
+        cylinder(h=fac, r = mount_hole_diameter/2, center =false);
+    }
 }
+module sensor_holes(){
+    translate([0,sensor_holes_distance/2,support_height-sensor_screw_depth]) cylinder(h=sensor_screw_depth, r=sensor_screw_diameter/2, center=true);
+    translate([0,-sensor_holes_distance/2,support_height-sensor_screw_depth]) cylinder(h=sensor_screw_depth, r=sensor_screw_diameter/2, center=true);
+}
+module base_plate(){
+    difference(){
+        cube([base_length, base_width, base_height], center = true);
+        translate([base_length/2-screw_offset,base_width/2-screw_offset,0]) screw_hole();
+        translate([base_length/2-screw_offset,-base_width/2+screw_offset,0]) screw_hole();
+        translate([-base_length/2+screw_offset,-base_width/2+screw_offset,0]) screw_hole();
+        translate([-base_length/2+screw_offset,base_width/2-screw_offset,0]) screw_hole();
+    }
+}    
+module sensor_support(){
+    difference(){
+        cube([sensor_base_width, sensor_base_length, support_height],center=true);
+        translate([0,0,support_height/2]) cube([sensor_base_width*screw_fac, sensor_pcb_width, 1.5], center=true); // remove some place for soldered parts on pcb
+    }
+}
+
 //---construction---------------------------------------------
 //---base-plate
-difference(){
-    cube([base_length, base_width, base_height], center = true);
-    translate([base_length/2-screw_offset,base_width/2-screw_offset,0]) screw_hole();
-    translate([base_length/2-screw_offset,-base_width/2+screw_offset,0]) screw_hole();
-    translate([-base_length/2+screw_offset,-base_width/2+screw_offset,0]) screw_hole();
-    translate([-base_length/2+screw_offset,base_width/2-screw_offset,0]) screw_hole();
+base_plate();
+
+//---sensor-support
+translate([0,0,support_height/2]) rotate([0, support_angle, 0]){ 
+    difference(){
+        sensor_support();
+        sensor_holes();
+    }   
 }
-//---base-support
-translate([0,0,]) rotate([0, support_angle, 0]) cube([support_height, base_width, base_height],center=false);
+//sensor_holes();
+
+
+
+//translate([0,0, support_height/2]) 
+
 
 *screw_hole();
