@@ -72,6 +72,8 @@ module sensor_support(){
 //---construction---------------------------------------------
 //---base-plate
 base_plate();
+//translate([0,0,2]) cube([sensor_base_width*1.5, base_width, base_height], center=true);
+translate([3,0,0]) rotate([-90,0,0]) rotate_extrude(angle=support_angle) translate([-5,0,0]) square([sensor_base_width*1.2, base_width], center = true);
 
 //---sensor-support
 translate([0,0,support_height/2]) rotate([0, support_angle, 0]){ 
