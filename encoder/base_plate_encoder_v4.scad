@@ -90,7 +90,7 @@ module assembly(){
 difference(){
     difference(){
         assembly();
-        translate([-15,0,-50]) cube([15,15,100]);
+        translate([-22.5,0,-50]) cube([25,20,100]);
     }
     translate([6,-15,-50]) cube([15,15,100]);
 }
