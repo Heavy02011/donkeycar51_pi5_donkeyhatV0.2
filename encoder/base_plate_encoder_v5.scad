@@ -70,8 +70,8 @@ module sensor_support(){
 }
 module base_plate2(){
     difference(){
-        cube([base_length, base_width, base_height], center = true);
-        translate([base_length/2-screw_offset,base_width/2-screw_offset,0]) screw_hole();
+        cube([10, base_width/2, base_height], center = true);
+        screw_hole();
     }
 } 
 //---construction---------------------------------------------
@@ -92,11 +92,17 @@ module assembly(){
     base_plate();
 }
 
-difference(){
+module assembly2(){
     difference(){
-        assembly();
-        translate([-22.5,0,-50]) cube([25,20,100]);
+        difference(){
+            assembly();
+            translate([-22.5,0,-50]) cube([25,20,100]);
+        }
+        translate([6,-15,-50]) cube([15,15,100]);
     }
-    translate([6,-15,-50]) cube([15,15,100]);
 }
-!base_plate2();
+difference(){
+    assembly2();
+    translate([-20,-15,-50]) cube([15,15,100]);
+    }
+translate([-10,-base_width/4,0]) base_plate2();
