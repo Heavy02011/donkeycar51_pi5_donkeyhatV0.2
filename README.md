@@ -32,3 +32,8 @@ sudo minicom -b 115200 -o -D /dev/ttyAMA0
 ```
 sudo -i -u rainer nmcli dev wifi hotspot ifname wlan1 ssid rbnano1-drivingnetwork password XXXXXXXX
 ```
+
+## [schema](https://github.com/Heavy02011/donkeyhat/tree/main/schema-plots)
+
+## [calibration](https://github.com/Heavy02011/donkeyhat/blob/main/calibration/readme.md)
+)
